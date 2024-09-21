@@ -14,6 +14,7 @@ async function init() {
             'Add a role',
             'Add an employee',
             'Update an employee role',
+            'Update an employee name', // New option added here
             'Exit',
         ],
     });
@@ -57,6 +58,8 @@ async function init() {
             console.log(`Added employee: ${firstName} ${lastName}`);
             break;
         case 'Update an employee role':
+            await employee.viewEmployees(); // Show all employees first
+
             const { empId, newRoleId } = await inquirer.prompt([
                 { type: 'input', name: 'empId', message: 'Enter employee ID to update:' },
                 { type: 'input', name: 'newRoleId', message: 'Enter new role ID:' },
@@ -64,10 +67,21 @@ async function init() {
             await employee.updateEmployeeRole(empId, newRoleId);
             console.log(`Updated employee ID ${empId} to new role ID ${newRoleId}`);
             break;
+        case 'Update an employee name': // New case for updating employee name
+            await employee.viewEmployees(); // Show all employees first
+
+            const { empIdToUpdate, newFirstName, newLastName } = await inquirer.prompt([
+                { type: 'input', name: 'empIdToUpdate', message: 'Enter employee ID to update:' },
+                { type: 'input', name: 'newFirstName', message: 'Enter new first name:' },
+                { type: 'input', name: 'newLastName', message: 'Enter new last name:' },
+            ]);
+            await employee.updateEmployeeName(empIdToUpdate, newFirstName, newLastName);
+            console.log(`Updated employee ID ${empIdToUpdate} to new name: ${newFirstName} ${newLastName}`);
+            break;
         case 'Exit':
             process.exit();
     }
-    init(); // Rinitialize the prompt
+    init(); // Reinitialize the prompt
 }
 
 init();

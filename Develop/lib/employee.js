@@ -1,3 +1,4 @@
+
 const db = require('./db');
 
 async function viewDepartments() {
@@ -15,11 +16,18 @@ async function viewRoles() {
 
 async function viewEmployees() {
     const res = await db.query(`
-        SELECT employee.id, first_name, last_name, role.title AS title, department.name AS department, role.salary, 
-        CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+        SELECT employee.id, 
+               employee.first_name, 
+               employee.last_name, 
+               role.title AS title, 
+               department.name AS department, 
+               role.salary, 
+               CONCAT(manager.first_name, ' ', manager.last_name) AS manager
         FROM employee
         JOIN role ON employee.role_id = role.id
-        LEFT JOIN employee manager ON employee.manager_id = manager.id`);
+        LEFT JOIN department ON role.department_id = department.id
+        LEFT JOIN employee AS manager ON employee.manager_id = manager.id
+    `);
     console.table(res.rows);
 }
 
@@ -39,6 +47,10 @@ async function updateEmployeeRole(employeeId, roleId) {
     await db.query('UPDATE employee SET role_id = $1 WHERE id = $2', [roleId, employeeId]);
 }
 
+async function updateEmployeeName(empId, newFirstName, newLastName) {
+    await db.query('UPDATE employee SET first_name = $1, last_name = $2 WHERE id = $3', [newFirstName, newLastName, empId]);
+}
+
 module.exports = {
     viewDepartments,
     viewRoles,
@@ -47,4 +59,5 @@ module.exports = {
     addRole,
     addEmployee,
     updateEmployeeRole,
+    updateEmployeeName, // Export the new function
 };
