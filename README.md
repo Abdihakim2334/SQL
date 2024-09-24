@@ -38,12 +38,10 @@ WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 ```
 
-## Mock-Up
+## Demonstration
 
 The following video shows an example of the application being used from the command line:
-
-[![A video thumbnail shows the command-line employee management application with a play button overlaying the view.](./Assets/12-sql-homework-video-thumbnail.png)](https://2u-20.wistia.com/medias/2lnle7xnpk)
-
+Link to my video demonstration here (https://drive.google.com/file/d/1xUEy4P0SkXNnLu9fAsc7Rxg6tpZ_e6mK/view?usp=sharing)
 ## Getting Started
 
 This Challenge will require a video submission. Refer to the [Fullstack Blog Video Submission Guide](https://coding-boot-camp.github.io/full-stack/computer-literacy/video-submission-guide) for additional guidance on creating a video.
